@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Facebook, Twitter, Instagram, Linkedin, Mail, GitHub } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Linkedin, Mail, Github } from 'lucide-react';
 
 const Footer = () => {
   return (
