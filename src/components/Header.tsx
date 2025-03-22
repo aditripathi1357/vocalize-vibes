@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
 const Header = () => {
@@ -19,7 +20,7 @@ const Header = () => {
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
 
   return (
-    <header className={`fixed w-full top-0 z-50 transition-all duration-300 ${isScrolled ? 'py-3 bg-white/90 backdrop-blur-md shadow-sm' : 'py-5 bg-transparent'}`}>
+    <header className={`fixed w-full top-0 z-50 transition-all duration-300 ${isScrolled ? 'py-3 bg-background/80 backdrop-blur-md shadow-sm' : 'py-5 bg-transparent'}`}>
       <div className="container mx-auto px-6 flex justify-between items-center">
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
@@ -27,7 +28,7 @@ const Header = () => {
           transition={{ duration: 0.6 }}
           className="flex items-center"
         >
-          <div className="relative flex items-center">
+          <Link to="/" className="relative flex items-center">
             <span className="text-primary text-3xl font-bold mr-1">Speak</span>
             <span className="text-3xl font-light">Verse</span>
             <div className="speech-wave absolute -right-8 bottom-2">
@@ -37,7 +38,7 @@ const Header = () => {
               <div className="speech-wave-bar h-3 animate-wave-4"></div>
               <div className="speech-wave-bar h-2 animate-wave-5"></div>
             </div>
-          </div>
+          </Link>
         </motion.div>
 
         {/* Desktop Navigation */}
@@ -60,12 +61,12 @@ const Header = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="hidden md:flex items-center space-x-4"
         >
-          <button className="text-sm font-medium text-foreground hover:text-primary transition-colors">
+          <Link to="/login" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
             Login
-          </button>
-          <button className="px-4 py-2 rounded-full bg-primary text-white text-sm font-medium hover:bg-primary/90 transition-colors shadow-md hover:shadow-lg">
+          </Link>
+          <Link to="/signup" className="px-4 py-2 rounded-full bg-primary text-white text-sm font-medium hover:bg-primary/90 transition-colors shadow-md hover:shadow-lg">
             Sign Up
-          </button>
+          </Link>
         </motion.div>
 
         {/* Mobile Menu Button */}
@@ -81,7 +82,7 @@ const Header = () => {
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.3 }}
-          className="md:hidden bg-background border-t"
+          className="md:hidden bg-background/90 backdrop-blur-md border-t border-white/10"
         >
           <div className="container mx-auto px-6 py-4 flex flex-col space-y-4">
             <a href="#features" className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors py-2">Features</a>
@@ -89,12 +90,12 @@ const Header = () => {
             <a href="#testimonials" className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors py-2">Testimonials</a>
             <a href="#pricing" className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors py-2">Pricing</a>
             <div className="flex flex-col space-y-3 pt-2">
-              <button className="w-full py-2 text-sm font-medium text-foreground hover:text-primary transition-colors">
+              <Link to="/login" className="w-full py-2 text-sm font-medium text-foreground hover:text-primary transition-colors">
                 Login
-              </button>
-              <button className="w-full py-2 rounded-full bg-primary text-white text-sm font-medium hover:bg-primary/90 transition-colors shadow-md">
+              </Link>
+              <Link to="/signup" className="w-full py-2 rounded-full bg-primary text-white text-sm font-medium hover:bg-primary/90 transition-colors shadow-md">
                 Sign Up
-              </button>
+              </Link>
             </div>
           </div>
         </motion.div>

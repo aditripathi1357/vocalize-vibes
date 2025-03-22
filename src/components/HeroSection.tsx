@@ -1,6 +1,7 @@
 
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import TextToSpeechDemo from './TextToSpeechDemo';
 import { ArrowRight } from 'lucide-react';
 
@@ -32,14 +33,14 @@ const HeroSection = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-              <button className="px-6 py-3 bg-primary hover:bg-primary/90 text-white rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group">
+              <Link to="/signup" className="px-6 py-3 bg-primary hover:bg-primary/90 text-white rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center group">
                 Get Started Free
                 <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </Link>
               
-              <button className="px-6 py-3 bg-white hover:bg-gray-50 text-foreground rounded-full font-medium shadow-md hover:shadow-lg border border-gray-100 transition-all duration-300">
+              <Link to="/login" className="px-6 py-3 bg-white/5 hover:bg-white/10 text-foreground rounded-full font-medium shadow-md hover:shadow-lg border border-white/10 transition-all duration-300">
                 Explore Voices
-              </button>
+              </Link>
             </div>
           </motion.div>
           
