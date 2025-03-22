@@ -48,33 +48,53 @@ const TestimonialCard = ({ testimonial, index }) => {
     }
   }, [controls, inView]);
 
+  // Card animation variants
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30, scale: 0.95 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      scale: 1,
+      transition: { 
+        duration: 0.6, 
+        delay: index * 0.1,
+        ease: "easeOut"
+      }
+    }
+  };
+
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      animate={controls}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col"
+      variants={cardVariants}
+      initial="hidden"
+      animate={inView ? "visible" : "hidden"}
+      className="bg-secondary/80 backdrop-blur-sm rounded-xl shadow-xl overflow-hidden h-full flex flex-col transform-gpu hover:scale-[1.02] transition-transform border border-white/10"
     >
       <div className="p-6 flex-grow">
-        <div className="mb-4 text-primary">
-          <Quote className="w-8 h-8 opacity-80" />
-        </div>
-        <p className="text-foreground/80 mb-4">{testimonial.content}</p>
+        <motion.div 
+          initial={{ rotate: -10, scale: 0.9 }}
+          animate={{ rotate: 0, scale: 1 }}
+          transition={{ delay: index * 0.1 + 0.2, duration: 0.4 }}
+          className="mb-4 text-primary"
+        >
+          <Quote className="w-8 h-8 opacity-90" />
+        </motion.div>
+        <p className="text-white mb-4 leading-relaxed">{testimonial.content}</p>
       </div>
       <div className="px-6 pb-6">
         <div className="flex items-center">
           <div className="flex-shrink-0">
-            <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-medium">
+            <div className="w-10 h-10 rounded-full bg-primary/30 flex items-center justify-center text-white font-medium">
               {testimonial.author.charAt(0)}
             </div>
           </div>
           <div className="ml-3">
-            <p className="text-sm font-medium text-foreground">{testimonial.author}</p>
+            <p className="text-sm font-medium text-white">{testimonial.author}</p>
             <div className="flex items-center">
-              <p className="text-xs text-foreground/60">{testimonial.role}</p>
-              <span className="mx-1 text-foreground/30">•</span>
-              <span className="text-xs font-medium px-1.5 py-0.5 rounded bg-primary/10 text-primary">
+              <p className="text-xs text-white/70">{testimonial.role}</p>
+              <span className="mx-1 text-white/30">•</span>
+              <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-primary/20 text-primary/90">
                 {testimonial.language}
               </span>
             </div>
@@ -98,23 +118,54 @@ const TestimonialsSection = () => {
     }
   }, [controls, inView]);
 
+  const headerVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3
+      }
+    }
+  };
+
   return (
-    <section id="testimonials" className="py-20 overflow-hidden">
+    <section id="testimonials" className="py-20 overflow-hidden relative">
+      {/* Background glow effect */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1/2 h-1/2 bg-primary/10 rounded-full blur-[120px] -z-10"></div>
+      
       <div className="container mx-auto px-6">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 20 }}
-          animate={controls}
-          transition={{ duration: 0.6 }}
+          variants={headerVariants}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">What Our Users Say</h2>
-          <p className="text-foreground/70 text-lg">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gradient">What Our Users Say</h2>
+          <p className="text-white/80 text-lg">
             Discover how our text-to-speech technology is transforming the way people communicate across different languages.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+        >
           {testimonials.map((testimonial, index) => (
             <TestimonialCard 
               key={testimonial.id} 
@@ -122,7 +173,7 @@ const TestimonialsSection = () => {
               index={index}
             />
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
